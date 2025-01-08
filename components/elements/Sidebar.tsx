@@ -1,58 +1,113 @@
 'use client'
+import React from 'react'
+
 import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerBody,
-  DrawerFooter,
   Button,
-  useDisclosure,
-} from "@nextui-org/react";
+  User,
+
+  Dropdown,
+  DropdownTrigger, 
+  DropdownMenu, 
+  DropdownItem,
+
+} from "@nextui-org/react"
+
+
+import {
+  IconUsersGroup,
+  IconBuildings,
+  IconCreditCardPay,
+  IconCalendarDollar,
+  IconHammer,
+  IconChartHistogram
+} from "@tabler/icons-react"
+import Link from 'next/link'
+
+const items = [
+  {
+    title: "Customer Management",
+    icon: <IconUsersGroup/>,
+    link: "/customer-management"
+  },
+  {
+    title: "Property Management",
+    icon: <IconBuildings/>,
+    link: "/property-management"
+  },
+  {
+    title: "Payments",
+    icon: <IconCreditCardPay/>,
+    link: "/payments"
+  },
+  {
+    title: "Lease Agreements",
+    icon: <IconCalendarDollar/>,
+    link: "/lease-agreements"
+  },
+  {
+    title: "Maintenance Requests",
+    icon: <IconHammer/>,
+    link: "/maintenance-requests"
+  },
+  {
+    title: "Analytics Dashboard",
+    icon: <IconChartHistogram/>,
+    link: "/analytics-dashboard"
+  },
+]
 
 const Sidebar = () => {
-  const {isOpen, onOpen, onOpenChange} = useDisclosure();
-
   return (
-    <>
-      <Button onPress={onOpen}>Open Drawer</Button>
-      <Drawer isOpen={isOpen} onOpenChange={onOpenChange}>
-        <DrawerContent>
-          {(onClose) => (
-            <>
-              <DrawerHeader className="flex flex-col gap-1">Drawer Title</DrawerHeader>
-              <DrawerBody>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar risus non
-                  risus hendrerit venenatis. Pellentesque sit amet hendrerit risus, sed porttitor
-                  quam.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar risus non
-                  risus hendrerit venenatis. Pellentesque sit amet hendrerit risus, sed porttitor
-                  quam.
-                </p>
-                <p>
-                  Magna exercitation reprehenderit magna aute tempor cupidatat consequat elit dolor
-                  adipisicing. Mollit dolor eiusmod sunt ex incididunt cillum quis. Velit duis sit
-                  officia eiusmod Lorem aliqua enim laboris do dolor eiusmod. Et mollit incididunt
-                  nisi consectetur esse laborum eiusmod pariatur proident Lorem eiusmod et. Culpa
-                  deserunt nostrud ad veniam.
-                </p>
-              </DrawerBody>
-              <DrawerFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Close
-                </Button>
-                <Button color="primary" onPress={onClose}>
-                  Action
-                </Button>
-              </DrawerFooter>
-            </>
-          )}
-        </DrawerContent>
-      </Drawer>
-    </>
-  );
+    <div className='w-[15rem] h-screen py-3'>
+      
+      {/* header */}
+      <div className=''>
+        <div className='flex flex-row p-2 space-x-2'>
+          <div className='bg-black p-1'></div>
+          <h2 className='uppercase tracking-wider'>MF Rental</h2>
+        </div>
+      </div>
+
+      {/* body */}
+      <div className='px-2'>
+        {items.map((item, index) => (
+          <Button variant='flat' className='w-full my-2 border-none hover:text-blue-500 translate-x-1 transition duration-300 bg-transparent text-black' key={index}>
+            <Link className='flex flex-row justify-between w-full place-items-center space-x-1' href={item.link}>
+              {item.icon}
+              <p className='w-full text-start'>{item.title}</p>
+            </Link>
+          </Button>
+        ))}
+      </div>
+
+      {/* footer */}
+      <div className='px-2 absolute w-[15rem] bottom-5'>
+        <Dropdown className='border border-default-200'>
+          <DropdownTrigger>
+            <Button variant='flat' className='w-[13rem] flex justify-start bg-black'>
+              <User 
+                name="Marwan Alsaadi"
+                description="Business Owner"
+                avatarProps={{
+                  src:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png",
+                  className:"w-7 h-7 outline outline-1 outline-gray-700 outline-offset-2 rounded-full"
+                }}
+                classNames={{
+                  name: "text-white",
+                  description: "text-gray-300"
+                }}
+              />
+            </Button>
+          </DropdownTrigger>
+          <DropdownMenu variant='flat' className=''>
+            <DropdownItem key="Profile" color='primary'>Profile</DropdownItem>
+            <DropdownItem key="Settings" color='primary'>Settings</DropdownItem>
+            <DropdownItem key="Logout" color='danger'>Logout</DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+      </div>
+    </div>
+  )
 }
 
-export default Sidebar;
+export default Sidebar
