@@ -22,7 +22,7 @@ export default function RootLayout({
           className={`antialiased`}
           >
           <Provider>
-            <div className="flex flex-row justify-between">
+            <div className="flex flex-col md:flex-row md:justify-between md:space-x-[15rem]">
               <Sidebar />
               {children}
             </div>

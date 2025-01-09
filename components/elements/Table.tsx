@@ -25,6 +25,7 @@ interface UserType {
   id: number;
   name: string;
   apartment: string,
+  payment_amount: string;
   payment_due: string;
   payment_ratio: string;
   status: string;
@@ -36,7 +37,8 @@ export const columns = [
   { name: "CLIENT", uid: "client" },
   { name: "APARTMENT", uid: "apartment" },
   { name: "STATUS", uid: "status" },
-  { name: "PAYMENT", uid: "payment due" },
+  { name: "LAST PAYMENT AMOUNT", uid: "payment amount" },
+  { name: "NEXT PAYMENT DUE", uid: "payment due" },
   { name: "ACTIONS", uid: "actions" },
 ];
 
@@ -44,6 +46,7 @@ export const users: UserType[] = [
   {
     id: 1,
     name: "Mohamed Ahmed",
+    payment_amount: "+ 48,000/y",
     payment_due: "Oct 7th, 2025",
     payment_ratio: "4/5",
     apartment: "R1",
@@ -54,6 +57,7 @@ export const users: UserType[] = [
   {
     id: 2,
     name: "Saleh faisal",
+    payment_amount: "+ 35,000/y",
     payment_due: "Feb 18th, 2025",
     payment_ratio: "1/5",
     apartment: "R2",
@@ -64,16 +68,18 @@ export const users: UserType[] = [
   {
     id: 3,
     name: "Mariam Khaled",
+    payment_amount: "+ 41,000/y",
     payment_due: "N/A",
     payment_ratio: "5/5",
     apartment: "R3",
     status: "unactive",
-    avatar: "https://media.istockphoto.com/id/1481415511/vector/arab-woman-face-covered-with-hijab-muslim-woman-muslim-girl-avatar-avatar-icon-in-flat-style.jpg?s=612x612&w=0&k=20&c=rQQYEUAa2jcvMS_CW5-ztC96zZ6J4EiSbzHHwyw_5pE=",
+    avatar: "https://cdn1.iconfinder.com/data/icons/64px-people-avatars/64/014_person-avatar-muslim-woman-moslem-hijab-512.png",
     phone_number: "+971 123 4567",
   },
   {
     id: 4,
     name: "Saeed Mohammed",
+    payment_amount: "+ 45,000/y",
     payment_due: "April 10th, 2025",
     payment_ratio: "3/5",
     apartment: "R5",
@@ -84,16 +90,18 @@ export const users: UserType[] = [
   {
     id: 5,
     name: "hannan Saif",
+    payment_amount: "+ 30,000/y",
     payment_due: "May 20nd, 2025",
     payment_ratio: "2/5",
     apartment: "AD1",
     status: "active",
-    avatar: "https://media.istockphoto.com/id/1481415511/vector/arab-woman-face-covered-with-hijab-muslim-woman-muslim-girl-avatar-avatar-icon-in-flat-style.jpg?s=612x612&w=0&k=20&c=rQQYEUAa2jcvMS_CW5-ztC96zZ6J4EiSbzHHwyw_5pE=",
+    avatar: "https://cdn1.iconfinder.com/data/icons/64px-people-avatars/64/014_person-avatar-muslim-woman-moslem-hijab-512.png",
     phone_number: "+971 123 4567",
   },
   {
     id: 6,
     name: "Abdullah Bader",
+    payment_amount: "+ 50,000/y",
     payment_due: "N/A",
     payment_ratio: "5/5",
     apartment: "AD2",
@@ -101,9 +109,24 @@ export const users: UserType[] = [
     avatar: "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png",
     phone_number: "+971 123 4567",
   },
+  {
+    id: 7,
+    name: "Mohamed Ahmed",
+    payment_amount: "+ 48,000/y",
+    payment_due: "Oct 7th, 2025",
+    payment_ratio: "4/5",
+    apartment: "R1",
+    status: "active",
+    avatar: "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png",
+    phone_number: "+971 123 4567",
+  },
 ];
 
-const Table: React.FC = () => {
+interface TableProps {
+  height?: string;
+}
+
+const Table: React.FC<TableProps> = ({ height }) => {
 
   const renderCell = React.useCallback(
     (user: UserType, columnKey: string) => {
@@ -119,14 +142,21 @@ const Table: React.FC = () => {
             />
           );
           case "apartment":
-            return <p className="text-center">{user.apartment}</p>;
+            return <p className="text-start">{user.apartment}</p>;
 
         case "status":
           return (
-            <Chip className="capitalize" color={user.status === "active" ? "success" : "danger"} size="sm" variant="flat">
-              {user.status}
+            <Chip
+              className="capitalize border-none gap-1 text-default-600"
+              color={user.status === "active" ? "success" : "danger"}
+              size="sm"
+              variant="dot"
+            >
+              {cellValue}
             </Chip>
           );
+        case "payment amount":
+          return <p className="text-start text-green-600">{user.payment_amount} <span>&#x62f;&#x2e;&#x625;</span></p>;
         case "payment due":
           return (
             <div className="flex flex-col">
@@ -158,12 +188,11 @@ const Table: React.FC = () => {
 
   return (
     <div className="border-t border-r border-l rounded-2xl">
-        <NextUITable 
+        <NextUITable
             isHeaderSticky
-
             aria-label="Table with custom cells"
             classNames={{
-                base: "max-h-[395px] overflow-x-scroll w-full",
+                base: `${height} overflow-x-scroll w-full`,
             }}
         >
         <TableHeader columns={columns}>
