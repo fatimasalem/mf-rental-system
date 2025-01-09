@@ -14,7 +14,7 @@
   "node_modules/@nextui-org/modal/dist/chunk-RE5G2YMK.mjs -> @nextui-org/dom-animation": {
     "id": "node_modules/@nextui-org/modal/dist/chunk-RE5G2YMK.mjs -> @nextui-org/dom-animation",
     "files": [
-      "static/chunks/_app-pages-browser_node_modules_nextui-org_dom-animation_dist_index_mjs-_5ad10.js"
+      "static/chunks/_app-pages-browser_node_modules_nextui-org_dom-animation_dist_index_mjs-_5ad11.js"
     ]
   },
   "node_modules/@nextui-org/navbar/dist/chunk-5HDGDWGW.mjs -> @nextui-org/dom-animation": {
@@ -50,7 +50,7 @@
   "node_modules/@nextui-org/tooltip/dist/chunk-LY4WDGUU.mjs -> @nextui-org/dom-animation": {
     "id": "node_modules/@nextui-org/tooltip/dist/chunk-LY4WDGUU.mjs -> @nextui-org/dom-animation",
     "files": [
-      "static/chunks/_app-pages-browser_node_modules_nextui-org_dom-animation_dist_index_mjs-_5ad10.js"
+      "static/chunks/_app-pages-browser_node_modules_nextui-org_dom-animation_dist_index_mjs-_5ad11.js"
     ]
   }
 }

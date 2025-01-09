@@ -25,6 +25,11 @@ import Link from 'next/link'
 
 const items = [
   {
+    title: "Dashboard",
+    icon: <IconChartHistogram/>,
+    link: "/dashboard"
+  },
+  {
     title: "Customer Management",
     icon: <IconUsersGroup/>,
     link: "/customer-management"
@@ -49,11 +54,6 @@ const items = [
     icon: <IconHammer/>,
     link: "/maintenance-requests"
   },
-  {
-    title: "Analytics Dashboard",
-    icon: <IconChartHistogram/>,
-    link: "/analytics-dashboard"
-  },
 ]
 
 const Sidebar = () => {
@@ -61,7 +61,7 @@ const Sidebar = () => {
     <div>
 
       <div className='md:hidden flex'>
-        <div className='p-4 fixed bottom-0 w-full z-10 backdrop-blur-lg border-t'>
+        <div className='p-4 fixed bottom-0 w-full z-[1000] backdrop-blur-lg border-t'>
           <div className='flex flex-wrap justify-center w-full'>
             {items.map((item, index) => (
               <Button variant='flat' key={index} className='bg-transparent'>

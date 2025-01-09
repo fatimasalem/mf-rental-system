@@ -17,258 +17,262 @@ import {
   User,
   Pagination,
   SortDescriptor,
+  Tooltip
 } from "@nextui-org/react";
 import { Key } from "@react-types/shared";
+import {
+  IconTrash,
+  IconEdit
+} from "@tabler/icons-react"
+import AddNewUser from "./functions/AddNewUser";
 
 export const columns = [
-  {name: "ID", uid: "id", sortable: true},
-  {name: "NAME", uid: "name", sortable: true},
-  {name: "AGE", uid: "age", sortable: true},
-  {name: "ROLE", uid: "role", sortable: true},
-  {name: "TEAM", uid: "team"},
-  {name: "EMAIL", uid: "email"},
-  {name: "STATUS", uid: "status", sortable: true},
-  {name: "ACTIONS", uid: "actions"},
+  { name: "CLIENT", uid: "client", sortable: true },
+  { name: "APARTMENT", uid: "apartment", sortable: true },
+  { name: "STATUS", uid: "status", sortable: true },
+  { name: "LAST PAYMENT AMOUNT", uid: "payment amount" },
+  { name: "NEXT PAYMENT DUE", uid: "payment due" },
+  { name: "ACTIONS", uid: "actions" },
 ];
 
-export const statusOptions = [
-  {name: "Active", uid: "active"},
-  {name: "Paused", uid: "paused"},
-  {name: "Vacation", uid: "vacation"},
-];
+interface UserType {
+  id: number;
+  name: string;
+  apartment: string,
+  payment_amount: string;
+  payment_due: string;
+  payment_ratio?: string;
+  status: string;
+  avatar: string;
+  phone_number: string;
+}
 
-export const users = [
+export const users: UserType[] = [
   {
     id: 1,
-    name: "Tony Reichert",
-    role: "CEO",
-    team: "Management",
+    name: "Mohamed Ahmed",
+    payment_amount: "+ 48,000/y",
+    payment_due: "Oct 7th, 2025",
+    payment_ratio: "4/5",
+    apartment: "R1",
     status: "active",
-    age: "29",
-    avatar: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
-    email: "tony.reichert@example.com",
+    avatar: "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png",
+    phone_number: "+971 123 4567",
   },
   {
     id: 2,
-    name: "Zoey Lang",
-    role: "Tech Lead",
-    team: "Development",
-    status: "paused",
-    age: "25",
-    avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704d",
-    email: "zoey.lang@example.com",
+    name: "Saleh Faisal",
+    payment_amount: "+ 35,000/y",
+    payment_due: "Feb 18th, 2025",
+    payment_ratio: "1/5",
+    apartment: "R2",
+    status: "active",
+    avatar: "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png",
+    phone_number: "+971 123 4567",
   },
   {
     id: 3,
-    name: "Jane Fisher",
-    role: "Sr. Dev",
-    team: "Development",
-    status: "active",
-    age: "22",
-    avatar: "https://i.pravatar.cc/150?u=a04258114e29026702d",
-    email: "jane.fisher@example.com",
+    name: "Mariam Khaled",
+    payment_amount: "+ 41,000/y",
+    payment_due: "N/A",
+    payment_ratio: "5/5",
+    apartment: "R3",
+    status: "unactive",
+    avatar: "https://cdn1.iconfinder.com/data/icons/64px-people-avatars/64/014_person-avatar-muslim-woman-moslem-hijab-512.png",
+    phone_number: "+971 123 4567",
   },
   {
     id: 4,
-    name: "William Howard",
-    role: "C.M.",
-    team: "Marketing",
-    status: "vacation",
-    age: "28",
-    avatar: "https://i.pravatar.cc/150?u=a048581f4e29026701d",
-    email: "william.howard@example.com",
+    name: "Saeed Mohammed",
+    payment_amount: "+ 45,000/y",
+    payment_due: "April 10th, 2025",
+    payment_ratio: "3/5",
+    apartment: "R5",
+    status: "active",
+    avatar: "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png",
+    phone_number: "+971 123 4567",
   },
   {
     id: 5,
-    name: "Kristen Copper",
-    role: "S. Manager",
-    team: "Sales",
+    name: "Hannan Saif",
+    payment_amount: "+ 30,000/y",
+    payment_due: "May 20th, 2025",
+    payment_ratio: "2/5",
+    apartment: "AD1",
     status: "active",
-    age: "24",
-    avatar: "https://i.pravatar.cc/150?u=a092581d4ef9026700d",
-    email: "kristen.cooper@example.com",
+    avatar: "https://cdn1.iconfinder.com/data/icons/64px-people-avatars/64/014_person-avatar-muslim-woman-moslem-hijab-512.png",
+    phone_number: "+971 123 4567",
   },
   {
     id: 6,
-    name: "Brian Kim",
-    role: "P. Manager",
-    team: "Management",
-    age: "29",
-    avatar: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
-    email: "brian.kim@example.com",
-    status: "Active",
+    name: "Abdullah Bader",
+    payment_amount: "+ 50,000/y",
+    payment_due: "N/A",
+    payment_ratio: "5/5",
+    apartment: "AD2",
+    status: "unactive",
+    avatar: "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png",
+    phone_number: "+971 123 4567",
   },
   {
     id: 7,
-    name: "Michael Hunt",
-    role: "Designer",
-    team: "Design",
-    status: "paused",
-    age: "27",
-    avatar: "https://i.pravatar.cc/150?u=a042581f4e29027007d",
-    email: "michael.hunt@example.com",
+    name: "Aisha Nasser",
+    payment_amount: "+ 38,000/y",
+    payment_due: "Jan 15th, 2025",
+    payment_ratio: "4/5",
+    apartment: "R6",
+    status: "active",
+    avatar: "https://cdn1.iconfinder.com/data/icons/64px-people-avatars/64/014_person-avatar-muslim-woman-moslem-hijab-512.png",
+    phone_number: "+971 234 5678",
   },
   {
     id: 8,
-    name: "Samantha Brooks",
-    role: "HR Manager",
-    team: "HR",
+    name: "Ali Jaber",
+    payment_amount: "+ 60,000/y",
+    payment_due: "March 3rd, 2025",
+    payment_ratio: "3/5",
+    apartment: "R7",
     status: "active",
-    age: "31",
-    avatar: "https://i.pravatar.cc/150?u=a042581f4e27027008d",
-    email: "samantha.brooks@example.com",
+    avatar: "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png",
+    phone_number: "+971 345 6789",
   },
   {
     id: 9,
-    name: "Frank Harrison",
-    role: "F. Manager",
-    team: "Finance",
-    status: "vacation",
-    age: "33",
-    avatar: "https://i.pravatar.cc/150?img=4",
-    email: "frank.harrison@example.com",
+    name: "Fatima Saif",
+    payment_amount: "+ 47,000/y",
+    payment_due: "Dec 1st, 2024",
+    payment_ratio: "4/5",
+    apartment: "AD3",
+    status: "active",
+    avatar: "https://cdn1.iconfinder.com/data/icons/64px-people-avatars/64/014_person-avatar-muslim-woman-moslem-hijab-512.png",
+    phone_number: "+971 456 7890",
   },
   {
     id: 10,
-    name: "Emma Adams",
-    role: "Ops Manager",
-    team: "Operations",
+    name: "Omar Khaled",
+    payment_amount: "+ 32,000/y",
+    payment_due: "Feb 25th, 2025",
+    payment_ratio: "2/5",
+    apartment: "AD4",
     status: "active",
-    age: "35",
-    avatar: "https://i.pravatar.cc/150?img=5",
-    email: "emma.adams@example.com",
+    avatar: "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png",
+    phone_number: "+971 567 8901",
   },
   {
     id: 11,
-    name: "Brandon Stevens",
-    role: "Jr. Dev",
-    team: "Development",
+    name: "Layla Ahmed",
+    payment_amount: "+ 25,000/y",
+    payment_due: "July 15th, 2025",
+    payment_ratio: "1/5",
+    apartment: "R8",
     status: "active",
-    age: "22",
-    avatar: "https://i.pravatar.cc/150?img=8",
-    email: "brandon.stevens@example.com",
+    avatar: "https://cdn1.iconfinder.com/data/icons/64px-people-avatars/64/014_person-avatar-muslim-woman-moslem-hijab-512.png",
+    phone_number: "+971 678 9012",
   },
   {
     id: 12,
-    name: "Megan Richards",
-    role: "P. Manager",
-    team: "Product",
-    status: "paused",
-    age: "28",
-    avatar: "https://i.pravatar.cc/150?img=10",
-    email: "megan.richards@example.com",
+    name: "Yousef Hassan",
+    payment_amount: "+ 55,000/y",
+    payment_due: "Aug 20th, 2025",
+    payment_ratio: "5/5",
+    apartment: "R9",
+    status: "active",
+    avatar: "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png",
+    phone_number: "+971 789 0123",
   },
   {
     id: 13,
-    name: "Oliver Scott",
-    role: "S. Manager",
-    team: "Security",
-    status: "active",
-    age: "37",
-    avatar: "https://i.pravatar.cc/150?img=12",
-    email: "oliver.scott@example.com",
+    name: "Noura Ibrahim",
+    payment_amount: "+ 42,000/y",
+    payment_due: "N/A",
+    payment_ratio: "4/5",
+    apartment: "AD5",
+    status: "unactive",
+    avatar: "https://cdn1.iconfinder.com/data/icons/64px-people-avatars/64/014_person-avatar-muslim-woman-moslem-hijab-512.png",
+    phone_number: "+971 890 1234",
   },
   {
     id: 14,
-    name: "Grace Allen",
-    role: "M. Specialist",
-    team: "Marketing",
+    name: "Hassan Saleh",
+    payment_amount: "+ 37,000/y",
+    payment_due: "Jan 10th, 2025",
+    payment_ratio: "3/5",
+    apartment: "R10",
     status: "active",
-    age: "30",
-    avatar: "https://i.pravatar.cc/150?img=16",
-    email: "grace.allen@example.com",
+    avatar: "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png",
+    phone_number: "+971 901 2345",
   },
   {
     id: 15,
-    name: "Noah Carter",
-    role: "IT Specialist",
-    team: "I. Technology",
-    status: "paused",
-    age: "31",
-    avatar: "https://i.pravatar.cc/150?img=15",
-    email: "noah.carter@example.com",
+    name: "Khalifa Abdulrahman",
+    payment_amount: "+ 49,000/y",
+    payment_due: "March 18th, 2025",
+    payment_ratio: "5/5",
+    apartment: "AD6",
+    status: "active",
+    avatar: "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png",
+    phone_number: "+971 012 3456",
   },
   {
     id: 16,
-    name: "Ava Perez",
-    role: "Manager",
-    team: "Sales",
+    name: "Sara Ali",
+    payment_amount: "+ 29,000/y",
+    payment_due: "May 5th, 2025",
+    payment_ratio: "2/5",
+    apartment: "R11",
     status: "active",
-    age: "29",
-    avatar: "https://i.pravatar.cc/150?img=20",
-    email: "ava.perez@example.com",
+    avatar: "https://cdn1.iconfinder.com/data/icons/64px-people-avatars/64/014_person-avatar-muslim-woman-moslem-hijab-512.png",
+    phone_number: "+971 123 4568",
   },
   {
     id: 17,
-    name: "Liam Johnson",
-    role: "Data Analyst",
-    team: "Analysis",
+    name: "Fahad Mohammed",
+    payment_amount: "+ 40,000/y",
+    payment_due: "April 25th, 2025",
+    payment_ratio: "4/5",
+    apartment: "AD7",
     status: "active",
-    age: "28",
-    avatar: "https://i.pravatar.cc/150?img=33",
-    email: "liam.johnson@example.com",
+    avatar: "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png",
+    phone_number: "+971 234 5679",
   },
   {
     id: 18,
-    name: "Sophia Taylor",
-    role: "QA Analyst",
-    team: "Testing",
-    status: "active",
-    age: "27",
-    avatar: "https://i.pravatar.cc/150?img=29",
-    email: "sophia.taylor@example.com",
+    name: "Zahra Hassan",
+    payment_amount: "+ 31,000/y",
+    payment_due: "N/A",
+    payment_ratio: "5/5",
+    apartment: "R12",
+    status: "unactive",
+    avatar: "https://cdn1.iconfinder.com/data/icons/64px-people-avatars/64/014_person-avatar-muslim-woman-moslem-hijab-512.png",
+    phone_number: "+971 345 6780",
   },
   {
     id: 19,
-    name: "Lucas Harris",
-    role: "Administrator",
-    team: "Information Technology",
-    status: "paused",
-    age: "32",
-    avatar: "https://i.pravatar.cc/150?img=50",
-    email: "lucas.harris@example.com",
+    name: "Ahmed Omar",
+    payment_amount: "+ 36,000/y",
+    payment_due: "Dec 10th, 2024",
+    payment_ratio: "3/5",
+    apartment: "AD8",
+    status: "active",
+    avatar: "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png",
+    phone_number: "+971 456 7891",
   },
   {
     id: 20,
-    name: "Mia Robinson",
-    role: "Coordinator",
-    team: "Operations",
+    name: "Mona Jaber",
+    payment_amount: "+ 34,000/y",
+    payment_due: "Feb 28th, 2025",
+    payment_ratio: "2/5",
+    apartment: "R13",
     status: "active",
-    age: "26",
-    avatar: "https://i.pravatar.cc/150?img=45",
-    email: "mia.robinson@example.com",
+    avatar: "https://cdn1.iconfinder.com/data/icons/64px-people-avatars/64/014_person-avatar-muslim-woman-moslem-hijab-512.png",
+    phone_number: "+971 567 8902",
   },
 ];
 
 export function capitalize(s: string) {
   return s ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : "";
 }
-
-export const PlusIcon = ({size = 24, width, height, ...props}: {size?: number, width?: number, height?: number}) => {
-  return (
-    <svg
-      aria-hidden="true"
-      fill="none"
-      focusable="false"
-      height={size || height}
-      role="presentation"
-      viewBox="0 0 24 24"
-      width={size || width}
-      {...props}
-    >
-      <g
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={1.5}
-      >
-        <path d="M6 12h12" />
-        <path d="M12 18V6" />
-      </g>
-    </svg>
-  );
-};
 
 export const VerticalDotsIcon = ({size = 24, width, height, className, ...props}: {size?: number, width?: number, height?: number, className?: string}) => {
   return (
@@ -350,7 +354,13 @@ const statusColorMap: Record<string, "success" | "danger" | "warning"> = {
   vacation: "warning",
 };
 
-const INITIAL_VISIBLE_COLUMNS = ["name", "role", "status", "actions"];
+export const statusOptions = [
+  {name: "Active", uid: "active"},
+  {name: "Paused", uid: "paused"},
+  {name: "Vacation", uid: "vacation"},
+];
+
+const INITIAL_VISIBLE_COLUMNS = ["client", "apartment", "status", "payment amount", "payment due", "actions"];
 
 export default function Table() {
   const [filterValue, setFilterValue] = React.useState("");
@@ -359,9 +369,238 @@ export default function Table() {
   const [statusFilter, setStatusFilter] = React.useState<Set<string>>(new Set(["all"]));
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({
-    column: "age",
+    column: "apartment",
     direction: "ascending" as const,
   });
+
+  const [users, setUsers] = React.useState([
+
+    {
+      id: 1,
+      name: "Mohamed Ahmed",
+      payment_amount: "+ 48,000/y",
+      payment_due: "Oct 7th, 2025",
+      payment_ratio: "4/5",
+      apartment: "R1",
+      status: "active",
+      avatar: "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png",
+      phone_number: "+971 123 4567",
+    },
+    {
+      id: 2,
+      name: "Saleh Faisal",
+      payment_amount: "+ 35,000/y",
+      payment_due: "Feb 18th, 2025",
+      payment_ratio: "1/5",
+      apartment: "R2",
+      status: "active",
+      avatar: "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png",
+      phone_number: "+971 123 4567",
+    },
+    {
+      id: 3,
+      name: "Mariam Khaled",
+      payment_amount: "+ 41,000/y",
+      payment_due: "N/A",
+      payment_ratio: "5/5",
+      apartment: "R3",
+      status: "unactive",
+      avatar: "https://cdn1.iconfinder.com/data/icons/64px-people-avatars/64/014_person-avatar-muslim-woman-moslem-hijab-512.png",
+      phone_number: "+971 123 4567",
+    },
+    {
+      id: 4,
+      name: "Saeed Mohammed",
+      payment_amount: "+ 45,000/y",
+      payment_due: "April 10th, 2025",
+      payment_ratio: "3/5",
+      apartment: "R5",
+      status: "active",
+      avatar: "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png",
+      phone_number: "+971 123 4567",
+    },
+    {
+      id: 5,
+      name: "Hannan Saif",
+      payment_amount: "+ 30,000/y",
+      payment_due: "May 20th, 2025",
+      payment_ratio: "2/5",
+      apartment: "AD1",
+      status: "active",
+      avatar: "https://cdn1.iconfinder.com/data/icons/64px-people-avatars/64/014_person-avatar-muslim-woman-moslem-hijab-512.png",
+      phone_number: "+971 123 4567",
+    },
+    {
+      id: 6,
+      name: "Abdullah Bader",
+      payment_amount: "+ 50,000/y",
+      payment_due: "N/A",
+      payment_ratio: "5/5",
+      apartment: "AD2",
+      status: "unactive",
+      avatar: "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png",
+      phone_number: "+971 123 4567",
+    },
+    {
+      id: 7,
+      name: "Aisha Nasser",
+      payment_amount: "+ 38,000/y",
+      payment_due: "Jan 15th, 2025",
+      payment_ratio: "4/5",
+      apartment: "R6",
+      status: "active",
+      avatar: "https://cdn1.iconfinder.com/data/icons/64px-people-avatars/64/014_person-avatar-muslim-woman-moslem-hijab-512.png",
+      phone_number: "+971 234 5678",
+    },
+    {
+      id: 8,
+      name: "Ali Jaber",
+      payment_amount: "+ 60,000/y",
+      payment_due: "March 3rd, 2025",
+      payment_ratio: "3/5",
+      apartment: "R7",
+      status: "active",
+      avatar: "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png",
+      phone_number: "+971 345 6789",
+    },
+    {
+      id: 9,
+      name: "Fatima Saif",
+      payment_amount: "+ 47,000/y",
+      payment_due: "Dec 1st, 2024",
+      payment_ratio: "4/5",
+      apartment: "AD3",
+      status: "active",
+      avatar: "https://cdn1.iconfinder.com/data/icons/64px-people-avatars/64/014_person-avatar-muslim-woman-moslem-hijab-512.png",
+      phone_number: "+971 456 7890",
+    },
+    {
+      id: 10,
+      name: "Omar Khaled",
+      payment_amount: "+ 32,000/y",
+      payment_due: "Feb 25th, 2025",
+      payment_ratio: "2/5",
+      apartment: "AD4",
+      status: "active",
+      avatar: "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png",
+      phone_number: "+971 567 8901",
+    },
+    {
+      id: 11,
+      name: "Layla Ahmed",
+      payment_amount: "+ 25,000/y",
+      payment_due: "July 15th, 2025",
+      payment_ratio: "1/5",
+      apartment: "R8",
+      status: "active",
+      avatar: "https://cdn1.iconfinder.com/data/icons/64px-people-avatars/64/014_person-avatar-muslim-woman-moslem-hijab-512.png",
+      phone_number: "+971 678 9012",
+    },
+    {
+      id: 12,
+      name: "Yousef Hassan",
+      payment_amount: "+ 55,000/y",
+      payment_due: "Aug 20th, 2025",
+      payment_ratio: "5/5",
+      apartment: "R9",
+      status: "active",
+      avatar: "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png",
+      phone_number: "+971 789 0123",
+    },
+    {
+      id: 13,
+      name: "Noura Ibrahim",
+      payment_amount: "+ 42,000/y",
+      payment_due: "N/A",
+      payment_ratio: "4/5",
+      apartment: "AD5",
+      status: "unactive",
+      avatar: "https://cdn1.iconfinder.com/data/icons/64px-people-avatars/64/014_person-avatar-muslim-woman-moslem-hijab-512.png",
+      phone_number: "+971 890 1234",
+    },
+    {
+      id: 14,
+      name: "Hassan Saleh",
+      payment_amount: "+ 37,000/y",
+      payment_due: "Jan 10th, 2025",
+      payment_ratio: "3/5",
+      apartment: "R10",
+      status: "active",
+      avatar: "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png",
+      phone_number: "+971 901 2345",
+    },
+    {
+      id: 15,
+      name: "Khalifa Abdulrahman",
+      payment_amount: "+ 49,000/y",
+      payment_due: "March 18th, 2025",
+      payment_ratio: "5/5",
+      apartment: "AD6",
+      status: "active",
+      avatar: "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png",
+      phone_number: "+971 012 3456",
+    },
+    {
+      id: 16,
+      name: "Sara Ali",
+      payment_amount: "+ 29,000/y",
+      payment_due: "May 5th, 2025",
+      payment_ratio: "2/5",
+      apartment: "R11",
+      status: "active",
+      avatar: "https://cdn1.iconfinder.com/data/icons/64px-people-avatars/64/014_person-avatar-muslim-woman-moslem-hijab-512.png",
+      phone_number: "+971 123 4568",
+    },
+    {
+      id: 17,
+      name: "Fahad Mohammed",
+      payment_amount: "+ 40,000/y",
+      payment_due: "April 25th, 2025",
+      payment_ratio: "4/5",
+      apartment: "AD7",
+      status: "active",
+      avatar: "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png",
+      phone_number: "+971 234 5679",
+    },
+    {
+      id: 18,
+      name: "Zahra Hassan",
+      payment_amount: "+ 31,000/y",
+      payment_due: "N/A",
+      payment_ratio: "5/5",
+      apartment: "R12",
+      status: "unactive",
+      avatar: "https://cdn1.iconfinder.com/data/icons/64px-people-avatars/64/014_person-avatar-muslim-woman-moslem-hijab-512.png",
+      phone_number: "+971 345 6780",
+    },
+    {
+      id: 19,
+      name: "Ahmed Omar",
+      payment_amount: "+ 36,000/y",
+      payment_due: "Dec 10th, 2024",
+      payment_ratio: "3/5",
+      apartment: "AD8",
+      status: "active",
+      avatar: "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png",
+      phone_number: "+971 456 7891",
+    },
+    {
+      id: 20,
+      name: "Mona Jaber",
+      payment_amount: "+ 34,000/y",
+      payment_due: "Feb 28th, 2025",
+      payment_ratio: "2/5",
+      apartment: "R13",
+      status: "active",
+      avatar: "https://cdn1.iconfinder.com/data/icons/64px-people-avatars/64/014_person-avatar-muslim-woman-moslem-hijab-512.png",
+      phone_number: "+971 567 8902",
+    },
+  ]);
+
+  const handleAddNewUser = (newUser: any) => {
+    setUsers((prevUsers) => [...prevUsers, newUser]);
+  };
+  
   const [page, setPage] = React.useState(1);
 
   const hasSearchFilter = Boolean(filterValue);
@@ -408,54 +647,63 @@ export default function Table() {
       });
     }, [sortDescriptor, items]);
 
-  const renderCell = React.useCallback((user: typeof users[0], columnKey: string) => {
-    const cellValue = user[columnKey as keyof typeof user];
-
-    switch (columnKey) {
-      case "name":
-        return (
-          <User
-            avatarProps={{radius: "lg", src: user.avatar}}
-            description={user.email}
-            name={cellValue}
-          >
-            {user.email}
-          </User>
-        );
-      case "role":
-        return (
-          <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{cellValue}</p>
-            <p className="text-bold text-tiny capitalize text-default-400">{user.team}</p>
-          </div>
-        );
-      case "status":
-        return (
-          <Chip className="capitalize" color={statusColorMap[user.status]} size="sm" variant="flat">
-            {cellValue}
-          </Chip>
-        );
-      case "actions":
-        return (
-          <div className="relative flex justify-end items-center gap-2">
-            <Dropdown>
-              <DropdownTrigger>
-                <Button isIconOnly size="sm" variant="light">
-                  <VerticalDotsIcon className="text-default-300" />
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu>
-                <DropdownItem key="view">View</DropdownItem>
-                <DropdownItem key="edit">Edit</DropdownItem>
-                <DropdownItem key="delete">Delete</DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-          </div>
-        );
-      default:
-        return cellValue;
-    }
-  }, []);
+    const renderCell = React.useCallback(
+      (user: UserType, columnKey: string) => {
+        const cellValue = user[columnKey as keyof UserType];
+  
+        switch (columnKey) {
+          case "client":
+            return (
+              <User
+                avatarProps={{ radius: "lg", src: user.avatar, className: "outline outline-1 outline-default-200 rounded-full outline-offset-2" }}
+                description={user.phone_number}
+                name={user.name}
+              />
+            );
+            case "apartment":
+              return <p className="text-start">{user.apartment}</p>;
+  
+          case "status":
+            return (
+              <Chip
+                className="capitalize border-none gap-1 text-default-600"
+                color={user.status === "active" ? "success" : "danger"}
+                size="sm"
+                variant="dot"
+              >
+                {cellValue}
+              </Chip>
+            );
+          case "payment amount":
+            return <p className="text-start text-green-600">{user.payment_amount} <span>&#x62f;&#x2e;&#x625;</span></p>;
+          case "payment due":
+            return (
+              <div className="flex flex-col">
+                  <p>{user.payment_due}</p>
+                  <p className="text-xs text-default-400">{user.payment_ratio}</p>
+              </div>
+            );
+          case "actions":
+            return (
+              <div className="relative flex items-center gap-2">
+                <Tooltip content="Edit user">
+                  <span className="text-xs text-default-400 cursor-pointer active:opacity-50">
+                    <IconEdit size={20} />
+                  </span>
+                </Tooltip>
+                <Tooltip color="danger" content="Delete user">
+                  <span className="text-xs text-danger cursor-pointer active:opacity-50">
+                    <IconTrash size={20} />
+                  </span>
+                </Tooltip>
+              </div>
+            );
+          default:
+            return cellValue;
+        }
+      },
+      []
+    );
 
   const onNextPage = React.useCallback(() => {
     if (page < pages) {
@@ -544,9 +792,7 @@ export default function Table() {
                 ))}
               </DropdownMenu>
             </Dropdown>
-            <Button color="primary" endContent={<PlusIcon />}>
-              Add New
-            </Button>
+            <AddNewUser onAddUser={handleAddNewUser} />
           </div>
         </div>
         <div className="flex justify-between items-center">
@@ -587,7 +833,6 @@ export default function Table() {
           isCompact
           showControls
           showShadow
-          className="z-50"
           color="primary"
           page={page}
           total={pages}

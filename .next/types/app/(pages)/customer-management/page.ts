@@ -1,4 +1,4 @@
-// File: /Users/fatimasalem/Desktop/next/mf-rental-system/app/(pages)/customer-management/page.tsx
+// File: /workspaces/mf-rental-system/app/(pages)/customer-management/page.tsx
 import * as entry from '../../../../../app/(pages)/customer-management/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

@@ -714,6 +714,9 @@ video {
 .z-50 {
   z-index: 50;
 }
+.z-\[1000\] {
+  z-index: 1000;
+}
 .z-\[1\] {
   z-index: 1;
 }
@@ -853,6 +856,9 @@ video {
 }
 .mt-5 {
   margin-top: 1.25rem;
+}
+.mt-4 {
+  margin-top: 1rem;
 }
 .box-border {
   box-sizing: border-box;
@@ -2604,10 +2610,6 @@ video {
 }
 .text-danger\/80 {
   color: hsl(var(--nextui-danger) / 0.8);
-}
-.text-default-300 {
-  --tw-text-opacity: 1;
-  color: hsl(var(--nextui-default-300) / var(--nextui-default-300-opacity, var(--tw-text-opacity)));
 }
 .text-default-400 {
   --tw-text-opacity: 1;
